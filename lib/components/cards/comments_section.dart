@@ -92,7 +92,7 @@ class _CommentsSectionState extends State<CommentsSection> {
                         controller: nameController,
                         maxLength: 25,
                         decoration: const InputDecoration(
-                          labelText: "Name",
+                          labelText: "Nombre",
                           hintText: "Deja en blanco para ser anónimo",
                           border: OutlineInputBorder(),
                         ),
@@ -105,7 +105,7 @@ class _CommentsSectionState extends State<CommentsSection> {
                         maxLines: 7,
                         decoration: const InputDecoration(
                           alignLabelWithHint: true,
-                          labelText: "Comment",
+                          labelText: "Comentario",
                           border: OutlineInputBorder(),
                         ),
                         validator: (value) => value!.isEmpty
