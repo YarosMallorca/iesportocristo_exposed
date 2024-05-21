@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iesportocristo_exposed/models/student.dart';
 
-class StudentCard extends StatefulWidget {
-  const StudentCard({super.key, required this.student});
+class StudentGridItem extends StatefulWidget {
+  const StudentGridItem({super.key, required this.student});
 
   final Student student;
 
   @override
-  State<StudentCard> createState() => _StudentCardState();
+  State<StudentGridItem> createState() => _StudentGridItemState();
 }
 
-class _StudentCardState extends State<StudentCard> {
+class _StudentGridItemState extends State<StudentGridItem> {
   bool _hovering = false;
 
   @override
@@ -47,13 +47,10 @@ class _StudentCardState extends State<StudentCard> {
                     SizedBox(
                       width: 220,
                       height: 220,
-                      child: Hero(
-                        tag: widget.student.name,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: FittedBox(
-                              fit: BoxFit.cover, child: widget.student.image),
-                        ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: FittedBox(
+                            fit: BoxFit.cover, child: widget.student.image),
                       ),
                     )
                   ],

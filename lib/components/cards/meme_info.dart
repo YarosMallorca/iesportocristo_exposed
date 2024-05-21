@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:iesportocristo_exposed/models/student.dart';
+import 'package:iesportocristo_exposed/models/meme.dart';
 
-class StudentInfo extends StatelessWidget {
-  const StudentInfo({super.key, required this.student});
+class MemeInfo extends StatelessWidget {
+  const MemeInfo({super.key, required this.meme});
 
-  final Student student;
+  final Meme meme;
 
   @override
   Widget build(BuildContext context) {
@@ -18,20 +18,23 @@ class StudentInfo extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Nombre: ${student.name}',
+                  meme.name,
                   style: const TextStyle(
                       fontSize: 28, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'Edad: ${student.age}',
+                  meme.author,
                   style: const TextStyle(fontSize: 18),
                 ),
-                const SizedBox(height: 12),
-                ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 300),
-                    child: Text(student.description,
-                        style: const TextStyle(fontSize: 18))),
+                if (meme.description != null &&
+                    meme.description!.isNotEmpty) ...[
+                  const SizedBox(height: 12),
+                  ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 300),
+                      child: Text(meme.description!,
+                          style: const TextStyle(fontSize: 18))),
+                ],
               ],
             ),
             const SizedBox(width: 24),
@@ -40,7 +43,9 @@ class StudentInfo extends StatelessWidget {
                 width: 300,
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: FittedBox(fit: BoxFit.cover, child: student.image))),
+                    child: FittedBox(
+                        fit: BoxFit.cover,
+                        child: Image.memory(meme.imageBytes)))),
           ],
         ),
       ),

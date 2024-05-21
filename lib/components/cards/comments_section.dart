@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:iesportocristo_exposed/models/comment.dart';
 
 class CommentsSection extends StatefulWidget {
-  const CommentsSection({super.key, required this.type, required this.name});
+  const CommentsSection(
+      {super.key, required this.type, required this.name, this.commentsTitle});
 
   final String type;
   final String name;
+  final String? commentsTitle;
 
   @override
   State<CommentsSection> createState() => _CommentsSectionState();
@@ -77,7 +79,7 @@ class _CommentsSectionState extends State<CommentsSection> {
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                Text("Comentarios sobre ${widget.name}",
+                Text("Comentarios sobre ${widget.commentsTitle ?? widget.name}",
                     style: const TextStyle(fontSize: 24)),
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 12.0),

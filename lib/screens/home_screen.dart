@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iesportocristo_exposed/components/navbar.dart';
-import 'package:iesportocristo_exposed/components/students_grid.dart';
+import 'package:iesportocristo_exposed/components/grids/students_grid.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

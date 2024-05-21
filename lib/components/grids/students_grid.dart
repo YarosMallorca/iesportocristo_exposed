@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:iesportocristo_exposed/components/student_card.dart';
+import 'package:iesportocristo_exposed/components/grids/items/student_grid_item.dart';
 import 'package:iesportocristo_exposed/models/student.dart';
 
 class StudentsGrid extends StatefulWidget {
@@ -53,7 +53,7 @@ class _StudentsGridState extends State<StudentsGrid> {
           runSpacing: 12,
           children: List.generate(
             studentsList.length,
-            (index) => StudentCard(student: studentsList[index]),
+            (index) => StudentGridItem(student: studentsList[index]),
           )),
     );
   }
