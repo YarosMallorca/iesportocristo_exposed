@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+final List<String> titles = ["Inicio", "Alumnos", "Profes", "Memes"];
+final List<String> routes = ["/", "/alumnos", "/profes", "/memes"];
+
 class Navbar extends StatelessWidget implements PreferredSizeWidget {
   const Navbar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final List<String> titles = ["Inicio", "Alumnos", "Profesores", "Memes"];
-    final List<String> routes = ["/", "/alumnos", "/profes", "/memes"];
-
     if (titles.length != routes.length) {
       throw Exception("Titles and routes must have the same length");
     }
@@ -54,31 +54,40 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
                     ],
                   ),
                 )),
-            const SizedBox(width: 16),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: List.generate(
-                  titles.length,
-                  (index) => Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: TextButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                ModalRoute.of(context)!.settings.name ==
-                                        routes[index]
-                                    ? WidgetStateProperty.all(
-                                        Colors.orange[500]!.withOpacity(0.1))
-                                    : null),
-                        onPressed: () => context.go(routes[index]),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            titles[index],
-                            style: const TextStyle(fontSize: 20),
-                          ),
-                        )),
-                  ),
-                ))
+            if (MediaQuery.of(context).size.width > 830) ...[
+              const SizedBox(width: 16),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: List.generate(
+                    titles.length,
+                    (index) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      child: TextButton(
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  ModalRoute.of(context)!.settings.name ==
+                                          routes[index]
+                                      ? WidgetStateProperty.all(
+                                          Colors.orange[500]!.withOpacity(0.1))
+                                      : null),
+                          onPressed: () => context.go(routes[index]),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              titles[index],
+                              style: const TextStyle(fontSize: 20),
+                            ),
+                          )),
+                    ),
+                  ))
+            ] else ...[
+              const Spacer(),
+              IconButton(
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer();
+                  },
+                  icon: const Icon(Icons.menu, color: Colors.white, size: 32))
+            ]
           ],
         ),
       ),

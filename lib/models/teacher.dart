@@ -1,27 +1,23 @@
 import 'package:flutter/material.dart';
 
-class Student {
-  const Student(
+class Teacher {
+  const Teacher(
       {required this.name,
       required this.age,
       required this.image,
-      required this.description,
-      this.instagram});
+      required this.description});
 
   final String name;
   final String age;
   final Image? image;
   final String description;
-  final Uri? instagram;
 
-  factory Student.fromFirestore(
+  factory Teacher.fromFirestore(
       String name, Map<String, dynamic> json, Image? image) {
-    return Student(
+    return Teacher(
         name: name,
         age: json['age'].toString(),
         image: image,
-        description: json['description'],
-        instagram:
-            json['instagram'] == null ? null : Uri.parse(json['instagram']));
+        description: json['description']);
   }
 }

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:iesportocristo_exposed/components/cards/meme_info.dart';
+import 'package:iesportocristo_exposed/components/mobile_navigation.dart';
 import 'package:iesportocristo_exposed/components/navbar.dart';
 import 'package:iesportocristo_exposed/components/cards/comments_section.dart';
 import 'package:iesportocristo_exposed/models/meme.dart';
@@ -55,6 +56,7 @@ class _MemeScreenState extends State<MemeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: const Navbar(),
+        endDrawer: const MobileNavigation(),
         body: meme == null
             ? const Center(child: CircularProgressIndicator())
             : SingleChildScrollView(

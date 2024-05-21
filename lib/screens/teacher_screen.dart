@@ -1,54 +1,54 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:iesportocristo_exposed/components/cards/student_info.dart';
+import 'package:iesportocristo_exposed/components/cards/teacher_info.dart';
 import 'package:iesportocristo_exposed/components/mobile_navigation.dart';
 import 'package:iesportocristo_exposed/components/navbar.dart';
 import 'package:iesportocristo_exposed/components/cards/comments_section.dart';
-import 'package:iesportocristo_exposed/models/student.dart';
+import 'package:iesportocristo_exposed/models/teacher.dart';
 
-class StudentScreen extends StatefulWidget {
-  const StudentScreen({super.key, required this.studentName});
+class TeacherScreen extends StatefulWidget {
+  const TeacherScreen({super.key, required this.teacherName});
 
-  final String studentName;
+  final String teacherName;
 
   @override
-  State<StudentScreen> createState() => _StudentScreenState();
+  State<TeacherScreen> createState() => _TeacherScreenState();
 }
 
-class _StudentScreenState extends State<StudentScreen> {
+class _TeacherScreenState extends State<TeacherScreen> {
   final db = FirebaseFirestore.instance;
   final storage = FirebaseStorage.instance.ref();
-  Student? student;
+  Teacher? teacher;
 
   @override
   void initState() {
-    if (widget.studentName.isNotEmpty) {
-      loadStudent();
+    if (widget.teacherName.isNotEmpty) {
+      loadTeacher();
     }
     super.initState();
   }
 
-  Future<void> loadStudent() async {
+  Future<void> loadTeacher() async {
     Image? image;
     try {
       final url = await storage
-          .child("/students/${widget.studentName}.jpg")
+          .child("/teachers/${widget.teacherName}.jpg")
           .getDownloadURL();
       image = Image.network(url);
     } on FirebaseException catch (_) {
-      debugPrint("Image of ${widget.studentName} not found");
+      debugPrint("Image of ${widget.teacherName} not found");
     }
 
-    final query = db.collection("students").doc(widget.studentName);
+    final query = db.collection("teachers").doc(widget.teacherName);
     final doc = await query.get();
 
     if (doc.data() == null) {
-      debugPrint("Student ${widget.studentName} not found");
+      debugPrint("Teacher ${widget.teacherName} not found");
       return;
     }
 
-    student = Student.fromFirestore(widget.studentName, doc.data()!, image);
+    teacher = Teacher.fromFirestore(widget.teacherName, doc.data()!, image);
 
     setState(() {});
   }
@@ -58,7 +58,7 @@ class _StudentScreenState extends State<StudentScreen> {
     return Scaffold(
         appBar: const Navbar(),
         endDrawer: const MobileNavigation(),
-        body: student == null
+        body: teacher == null
             ? const Center(child: CircularProgressIndicator())
             : SingleChildScrollView(
                 child: Padding(
@@ -67,12 +67,12 @@ class _StudentScreenState extends State<StudentScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Center(
-                        child: StudentInfo(student: student!),
+                        child: TeacherInfo(teacher: teacher!),
                       ),
                       const SizedBox(height: 16),
                       Center(
                           child: CommentsSection(
-                              type: 'students', name: student!.name))
+                              type: 'teachers', name: teacher!.name))
                     ],
                   ),
                 ),

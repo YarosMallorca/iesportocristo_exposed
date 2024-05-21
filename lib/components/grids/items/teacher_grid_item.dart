@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:iesportocristo_exposed/models/student.dart';
+import 'package:iesportocristo_exposed/models/teacher.dart';
 
-class StudentGridItem extends StatefulWidget {
-  const StudentGridItem({super.key, required this.student});
+class TeacherGridItem extends StatefulWidget {
+  const TeacherGridItem({super.key, required this.teacher});
 
-  final Student student;
+  final Teacher teacher;
 
   @override
-  State<StudentGridItem> createState() => _StudentGridItemState();
+  State<TeacherGridItem> createState() => _TeacherGridItemState();
 }
 
-class _StudentGridItemState extends State<StudentGridItem> {
+class _TeacherGridItemState extends State<TeacherGridItem> {
   bool _hovering = false;
 
   @override
@@ -22,7 +22,7 @@ class _StudentGridItemState extends State<StudentGridItem> {
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: () => context.go(
-          '/alumno?name=${widget.student.name}',
+          '/profe?name=${widget.teacher.name}',
         ),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
@@ -36,11 +36,11 @@ class _StudentGridItemState extends State<StudentGridItem> {
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
-                    Text(widget.student.name,
+                    Text(widget.teacher.name,
                         style:
                             const TextStyle(color: Colors.white, fontSize: 24)),
                     const SizedBox(height: 8),
-                    Text(widget.student.age.toString(),
+                    Text(widget.teacher.age.toString(),
                         style:
                             const TextStyle(color: Colors.white, fontSize: 16)),
                     const SizedBox(height: 8),
@@ -50,7 +50,7 @@ class _StudentGridItemState extends State<StudentGridItem> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
                         child: FittedBox(
-                            fit: BoxFit.cover, child: widget.student.image),
+                            fit: BoxFit.cover, child: widget.teacher.image),
                       ),
                     )
                   ],

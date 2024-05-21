@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:iesportocristo_exposed/models/student.dart';
+import 'package:iesportocristo_exposed/models/teacher.dart';
 
-class StudentInfo extends StatelessWidget {
-  const StudentInfo({super.key, required this.student});
+class TeacherInfo extends StatelessWidget {
+  const TeacherInfo({super.key, required this.teacher});
 
-  final Student student;
+  final Teacher teacher;
 
   @override
   Widget build(BuildContext context) {
@@ -23,20 +23,20 @@ class StudentInfo extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Nombre: ${student.name}',
+                    'Nombre: ${teacher.name}',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                         fontSize: 28, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Edad: ${student.age}',
+                    'Edad: ${teacher.age}',
                     style: const TextStyle(fontSize: 18),
                   ),
                   const SizedBox(height: 16),
                   ConstrainedBox(
                       constraints: const BoxConstraints(maxWidth: 300),
-                      child: Text(student.description,
+                      child: Text(teacher.description,
                           style: const TextStyle(fontSize: 18))),
                 ],
               ),
@@ -46,7 +46,7 @@ class StudentInfo extends StatelessWidget {
                 width: 300,
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: FittedBox(fit: BoxFit.cover, child: student.image))),
+                    child: FittedBox(fit: BoxFit.cover, child: teacher.image))),
           ],
         ),
       ),

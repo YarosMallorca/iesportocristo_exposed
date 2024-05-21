@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iesportocristo_exposed/components/grids/memes_grid.dart';
+import 'package:iesportocristo_exposed/components/mobile_navigation.dart';
 import 'package:iesportocristo_exposed/components/navbar.dart';
 import 'package:iesportocristo_exposed/components/upload_meme_popup.dart';
 
@@ -15,6 +16,7 @@ class _MemesScreenState extends State<MemesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: const Navbar(),
+        endDrawer: const MobileNavigation(),
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,

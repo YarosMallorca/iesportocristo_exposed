@@ -11,41 +11,50 @@ class MemeInfo extends StatelessWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(32.0),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
+        child: Wrap(
+          spacing: 24,
+          runSpacing: 24,
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  meme.name,
-                  style: const TextStyle(
-                      fontSize: 28, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  meme.author,
-                  style: const TextStyle(fontSize: 18),
-                ),
-                if (meme.description != null &&
-                    meme.description!.isNotEmpty) ...[
-                  const SizedBox(height: 12),
-                  ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 300),
-                      child: Text(meme.description!,
-                          style: const TextStyle(fontSize: 18))),
-                ],
-              ],
-            ),
-            const SizedBox(width: 24),
             SizedBox(
-                height: 300,
-                width: 300,
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: FittedBox(
-                        fit: BoxFit.cover,
-                        child: Image.memory(meme.imageBytes)))),
+              width: 360,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    meme.name,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        fontSize: 28, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    meme.author,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 18),
+                  ),
+                  if (meme.description != null &&
+                      meme.description!.isNotEmpty) ...[
+                    const SizedBox(height: 16),
+                    ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 300),
+                        child: Text(meme.description!,
+                            style: const TextStyle(fontSize: 18))),
+                  ],
+                ],
+              ),
+            ),
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 400),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.memory(
+                    meme.imageBytes,
+                    fit: BoxFit.contain,
+                  )),
+            ),
           ],
         ),
       ),
