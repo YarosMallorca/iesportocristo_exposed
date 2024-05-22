@@ -10,6 +10,7 @@ dependencies:
   cloud_firestore: ^4.17.3
   dart_openai: ^5.1.0
   envied: ^0.5.4+1
+  firebase_analytics: ^10.10.6
   firebase_core: ^2.31.0
   firebase_storage: ^11.7.5
   flutter:
