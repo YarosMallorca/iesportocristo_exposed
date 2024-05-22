@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:iesportocristo_exposed/components/cards/random/random_meme.dart';
 import 'package:iesportocristo_exposed/components/cards/random/random_student.dart';
 import 'package:iesportocristo_exposed/components/cards/random/random_teacher.dart';
+import 'package:iesportocristo_exposed/components/initial_disclaimer.dart';
 import 'package:iesportocristo_exposed/components/navbar.dart';
 import 'package:iesportocristo_exposed/components/mobile_navigation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,6 +15,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    showDisclaimer();
+    super.initState();
+  }
+
+  void showDisclaimer() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool? hasAcceptedDisclaimer = prefs.getBool('hasAcceptedDisclaimer');
+    if (hasAcceptedDisclaimer == null || !hasAcceptedDisclaimer) {
+      if (mounted) {
+        showDialog(context: context, builder: (_) => const InitialDisclaimer());
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
@@ -29,52 +47,57 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 24),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Bienvenido al lado",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 48,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
-                        SizedBox(width: 12),
-                        GradientText(
-                            Text("OSCURO",
-                                style: TextStyle(
-                                    fontSize: 48, fontWeight: FontWeight.bold)),
-                            gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  Colors.deepOrange,
-                                  Colors.orange,
-                                ])),
-                        SizedBox(width: 12),
-                        Text(
-                          "del",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 48,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
-                        SizedBox(width: 12),
-                        GradientText(
-                            Text("IES Porto Cristo",
-                                style: TextStyle(
-                                    fontSize: 48, fontWeight: FontWeight.bold)),
-                            gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  Colors.cyan,
-                                  Colors.blue,
-                                ])),
-                      ],
+                    Center(
+                      child: Wrap(
+                        alignment: WrapAlignment.center,
+                        runAlignment: WrapAlignment.center,
+                        children: [
+                          Text(
+                            "Bienvenido al lado",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 48,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                          SizedBox(width: 12),
+                          GradientText(
+                              Text("OSCURO",
+                                  style: TextStyle(
+                                      fontSize: 48,
+                                      fontWeight: FontWeight.bold)),
+                              gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Colors.deepOrange,
+                                    Colors.orange,
+                                  ])),
+                          SizedBox(width: 12),
+                          Text(
+                            "del",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 48,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                          SizedBox(width: 12),
+                          GradientText(
+                              Text("IES Porto Cristo",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 48,
+                                      fontWeight: FontWeight.bold)),
+                              gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Colors.cyan,
+                                    Colors.blue,
+                                  ])),
+                        ],
+                      ),
                     ),
                     SizedBox(height: 32),
                     Center(

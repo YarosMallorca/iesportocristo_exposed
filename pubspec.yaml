@@ -1,5 +1,5 @@
 name: iesportocristo_exposed
-description: "A new Flutter project."
+description: "The Darkside of IES Porto Cristo"
 publish_to: "none"
 version: 0.1.0
 
@@ -20,6 +20,7 @@ dependencies:
   image_picker: ^1.1.1
   image_picker_for_web: ^3.0.4
   path: ^1.9.0
+  shared_preferences: ^2.2.3
   uuid: ^4.4.0
 
 dev_dependencies:
