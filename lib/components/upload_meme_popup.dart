@@ -155,6 +155,12 @@ class _UploadMemePopupState extends State<UploadMemePopup> {
                   'description': descriptionController.text,
                   'image': imageReference,
                 });
+
+                if (context.mounted) {
+                  Navigator.of(context).pop();
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text("Meme publicado correctamente")));
+                }
               }
             },
             child: const Text("Publicar"))

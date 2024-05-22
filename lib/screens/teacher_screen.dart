@@ -69,14 +69,18 @@ class _TeacherScreenState extends State<TeacherScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Wrap(
-                            spacing: 12,
-                            runAlignment: WrapAlignment.center,
-                            children: [
-                              TeacherInfo(teacher: teacher!),
-                              AiCard(
-                                  name: teacher!.name,
-                                  description: teacher!.description)
-                            ]),
+                          spacing: 12,
+                          runAlignment: WrapAlignment.center,
+                          alignment: WrapAlignment.center,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            TeacherInfo(teacher: teacher!),
+                            AiCard(
+                              name: teacher!.name,
+                              description: teacher!.description,
+                            ),
+                          ],
+                        ),
                         const SizedBox(height: 16),
                         Center(
                             child: CommentsSection(

@@ -103,7 +103,7 @@ class _CommentsSectionState extends State<CommentsSection> {
                       const SizedBox(height: 8),
                       TextFormField(
                         controller: commentController,
-                        minLines: 3,
+                        minLines: 1,
                         maxLines: 7,
                         decoration: const InputDecoration(
                           alignLabelWithHint: true,
