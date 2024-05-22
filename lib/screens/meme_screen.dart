@@ -59,25 +59,27 @@ class _MemeScreenState extends State<MemeScreen> {
         endDrawer: const MobileNavigation(),
         body: meme == null
             ? const Center(child: CircularProgressIndicator())
-            : SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: MemeInfo(
-                          meme: meme!,
+            : SelectionArea(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Center(
+                          child: MemeInfo(
+                            meme: meme!,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 16),
-                      Center(
-                          child: CommentsSection(
-                        type: 'memes',
-                        name: meme!.id,
-                        commentsTitle: '"${meme!.name}"',
-                      ))
-                    ],
+                        const SizedBox(height: 16),
+                        Center(
+                            child: CommentsSection(
+                          type: 'memes',
+                          name: meme!.id,
+                          commentsTitle: '"${meme!.name}"',
+                        ))
+                      ],
+                    ),
                   ),
                 ),
               ));

@@ -54,6 +54,7 @@ class _RandomMemeState extends State<RandomMeme> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.grey[900],
       borderRadius: BorderRadius.circular(12),
       child: MouseRegion(
         cursor: SystemMouseCursors.click,

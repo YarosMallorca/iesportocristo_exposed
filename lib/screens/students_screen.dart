@@ -16,12 +16,14 @@ class _StudentsScreenState extends State<StudentsScreen> {
     return const Scaffold(
       appBar: Navbar(),
       endDrawer: MobileNavigation(),
-      body: SizedBox(
-        width: double.infinity,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(12.0),
-            child: StudentsGrid(),
+      body: SelectionArea(
+        child: SizedBox(
+          width: double.infinity,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(12.0),
+              child: StudentsGrid(),
+            ),
           ),
         ),
       ),

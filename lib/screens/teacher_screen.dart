@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:iesportocristo_exposed/components/cards/ai_card.dart';
 import 'package:iesportocristo_exposed/components/cards/teacher_info.dart';
 import 'package:iesportocristo_exposed/components/mobile_navigation.dart';
 import 'package:iesportocristo_exposed/components/navbar.dart';
@@ -60,20 +61,28 @@ class _TeacherScreenState extends State<TeacherScreen> {
         endDrawer: const MobileNavigation(),
         body: teacher == null
             ? const Center(child: CircularProgressIndicator())
-            : SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: TeacherInfo(teacher: teacher!),
-                      ),
-                      const SizedBox(height: 16),
-                      Center(
-                          child: CommentsSection(
-                              type: 'teachers', name: teacher!.name))
-                    ],
+            : SelectionArea(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Wrap(
+                            spacing: 12,
+                            runAlignment: WrapAlignment.center,
+                            children: [
+                              TeacherInfo(teacher: teacher!),
+                              AiCard(
+                                  name: teacher!.name,
+                                  description: teacher!.description)
+                            ]),
+                        const SizedBox(height: 16),
+                        Center(
+                            child: CommentsSection(
+                                type: 'teachers', name: teacher!.name))
+                      ],
+                    ),
                   ),
                 ),
               ));

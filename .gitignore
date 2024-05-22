@@ -41,3 +41,11 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/.firebase
+
+# Act
+act.secrets
+
+# Environment configuration
+.env
+lib/env/env.g.dart

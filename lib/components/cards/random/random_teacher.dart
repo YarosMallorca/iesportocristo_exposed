@@ -4,19 +4,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:iesportocristo_exposed/models/student.dart';
+import 'package:iesportocristo_exposed/models/teacher.dart';
 
-class RandomStudent extends StatefulWidget {
-  const RandomStudent({super.key});
+class RandomTeacher extends StatefulWidget {
+  const RandomTeacher({super.key});
 
   @override
-  State<RandomStudent> createState() => _RandomStudentState();
+  State<RandomTeacher> createState() => _RandomTeacherState();
 }
 
-class _RandomStudentState extends State<RandomStudent> {
+class _RandomTeacherState extends State<RandomTeacher> {
   final db = FirebaseFirestore.instance;
   final storage = FirebaseStorage.instance.ref();
-  Student? student;
+  Teacher? teacher;
   Random random = Random();
 
   @override
@@ -27,26 +27,26 @@ class _RandomStudentState extends State<RandomStudent> {
 
   Future<void> loadStudent() async {
     Image? image;
-    var studentsSnapshot = await db.collection('students').get();
-    int studentIndex = random.nextInt(studentsSnapshot.docs.length);
-    var studentName = studentsSnapshot.docs[studentIndex].id;
+    var teachersSnapshot = await db.collection('teachers').get();
+    int teacherIndex = random.nextInt(teachersSnapshot.docs.length);
+    var teacherName = teachersSnapshot.docs[teacherIndex].id;
     try {
       final url =
-          await storage.child("/students/$studentName.jpg").getDownloadURL();
+          await storage.child("/teachers/$teacherName.jpg").getDownloadURL();
       image = Image.network(url);
     } on FirebaseException catch (_) {
-      debugPrint("Image of $studentName not found");
+      debugPrint("Image of $teacherName not found");
     }
 
-    final query = db.collection("students").doc(studentName);
+    final query = db.collection("teachers").doc(teacherName);
     final doc = await query.get();
 
     if (doc.data() == null) {
-      debugPrint("Student $studentName not found");
+      debugPrint("Teacher $teacherName not found");
       return;
     }
 
-    student = Student.fromFirestore(studentName, doc.data()!, image);
+    teacher = Teacher.fromFirestore(teacherName, doc.data()!, image);
 
     setState(() {});
   }
@@ -61,23 +61,26 @@ class _RandomStudentState extends State<RandomStudent> {
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
           hoverColor: Colors.orange,
-          onTap: () => context.go('/alumno?name=${student!.name}'),
+          onTap: () => context.go('/profe?name=${teacher!.name}'),
           child: SizedBox(
               width: 300,
               height: 420,
-              child: student == null
+              child: teacher == null
                   ? const Center(child: CircularProgressIndicator())
                   : Padding(
                       padding: const EdgeInsets.all(16),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(student!.name,
+                          Text(teacher!.name,
                               style: const TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.bold)),
                           const SizedBox(height: 8),
-                          Text("Edad: ${student!.age}",
-                              style: const TextStyle(fontSize: 18)),
+                          FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text("Edad: ${teacher!.age}",
+                                style: const TextStyle(fontSize: 18)),
+                          ),
                           const SizedBox(height: 16),
                           ClipRRect(
                             borderRadius: BorderRadius.circular(12),
@@ -86,7 +89,7 @@ class _RandomStudentState extends State<RandomStudent> {
                               width: 300,
                               child: FittedBox(
                                 fit: BoxFit.cover,
-                                child: student!.image,
+                                child: teacher!.image,
                               ),
                             ),
                           ),

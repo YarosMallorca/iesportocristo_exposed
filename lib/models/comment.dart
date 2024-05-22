@@ -11,4 +11,9 @@ class Comment {
   Map<String, dynamic> toFirestore() {
     return {"name": name, "comment": comment};
   }
+
+  @override
+  String toString() {
+    return comment;
+  }
 }

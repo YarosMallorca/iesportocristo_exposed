@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:iesportocristo_exposed/components/cards/ai_card.dart';
 import 'package:iesportocristo_exposed/components/cards/student_info.dart';
 import 'package:iesportocristo_exposed/components/mobile_navigation.dart';
 import 'package:iesportocristo_exposed/components/navbar.dart';
@@ -60,20 +61,25 @@ class _StudentScreenState extends State<StudentScreen> {
         endDrawer: const MobileNavigation(),
         body: student == null
             ? const Center(child: CircularProgressIndicator())
-            : SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: StudentInfo(student: student!),
-                      ),
-                      const SizedBox(height: 16),
-                      Center(
-                          child: CommentsSection(
-                              type: 'students', name: student!.name))
-                    ],
+            : SelectionArea(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Wrap(spacing: 12, children: [
+                          StudentInfo(student: student!),
+                          AiCard(
+                              name: student!.name,
+                              description: student!.description)
+                        ]),
+                        const SizedBox(height: 16),
+                        Center(
+                            child: CommentsSection(
+                                type: 'students', name: student!.name))
+                      ],
+                    ),
                   ),
                 ),
               ));
