@@ -29,6 +29,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
+    Provider.of<AuthManager>(context, listen: false)
+        .getUserDescription()
+        .then((description) {
+      if (description != null) {
+        _descriptionController.text = description;
+      }
+    });
   }
 
   void uploadAndCropPhoto() async {
