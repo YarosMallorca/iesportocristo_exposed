@@ -96,6 +96,7 @@ class _UploadMemePopupState extends State<UploadMemePopup> {
                               onPressed: () async {
                                 image = await ImagePicker().pickImage(
                                     source: ImageSource.gallery,
+                                    maxHeight: 1000,
                                     imageQuality: 30);
                                 setState(() {});
                               },
@@ -154,6 +155,7 @@ class _UploadMemePopupState extends State<UploadMemePopup> {
                       : authorController.text,
                   'description': descriptionController.text,
                   'image': imageReference,
+                  'timestamp': FieldValue.serverTimestamp(),
                 });
 
                 if (context.mounted) {

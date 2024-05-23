@@ -3,6 +3,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:iesportocristo_exposed/components/grids/items/teacher_grid_item.dart';
 import 'package:iesportocristo_exposed/models/teacher.dart';
+import 'package:remove_diacritic/remove_diacritic.dart';
 
 class TeachersGrid extends StatefulWidget {
   const TeachersGrid({super.key});
@@ -27,8 +28,9 @@ class _TeachersGridState extends State<TeachersGrid> {
     for (var doc in querySnapshot.docs) {
       Image? image;
       try {
-        final url =
-            await storage.child("/teachers/${doc.id}.jpg").getDownloadURL();
+        final url = await storage
+            .child("/teachers/${removeDiacritics(doc.id)}.jpg")
+            .getDownloadURL();
         image = Image.network(url);
       } on FirebaseException catch (_) {
         debugPrint("Image of ${doc.id} not found");

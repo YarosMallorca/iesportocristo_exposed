@@ -25,7 +25,10 @@ class _MemesGridState extends State<MemesGrid> {
   }
 
   Future<void> loadMemes() async {
-    final querySnapshot = await db.collection("memes").get();
+    final querySnapshot = await db
+        .collection("memes")
+        .orderBy('timestamp', descending: true)
+        .get();
     for (var doc in querySnapshot.docs) {
       Uint8List? image;
       try {

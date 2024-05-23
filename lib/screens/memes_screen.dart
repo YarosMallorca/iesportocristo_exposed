@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iesportocristo_exposed/components/grids/memes_grid.dart';
 import 'package:iesportocristo_exposed/components/mobile_navigation.dart';
 import 'package:iesportocristo_exposed/components/navbar.dart';
-import 'package:iesportocristo_exposed/components/upload_meme_popup.dart';
+import 'package:iesportocristo_exposed/components/popups/upload_meme_popup.dart';
 
 class MemesScreen extends StatefulWidget {
   const MemesScreen({super.key});

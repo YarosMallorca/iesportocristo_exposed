@@ -6,12 +6,14 @@ class Student {
       required this.age,
       required this.image,
       required this.description,
+      this.uid,
       this.instagram});
 
   final String name;
   final String age;
   final Image? image;
   final String description;
+  final String? uid;
   final Uri? instagram;
 
   factory Student.fromFirestore(
@@ -21,6 +23,7 @@ class Student {
         age: json['age'].toString(),
         image: image,
         description: json['description'],
+        uid: json['account'],
         instagram:
             json['instagram'] == null ? null : Uri.parse(json['instagram']));
   }

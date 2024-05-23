@@ -1,19 +1,38 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Comment {
-  final String name;
+  final String author;
   final String comment;
+  final String? profilePicture;
+  final DocumentReference reference;
+  final String? userId;
 
-  Comment(this.name, this.comment);
+  Comment(
+      {required this.author,
+      required this.profilePicture,
+      required this.comment,
+      required this.reference,
+      required this.userId});
 
-  factory Comment.fromFirestore(Map<String, dynamic> data) {
-    return Comment(data["name"], data["comment"]);
+  factory Comment.fromFirestore(
+      {required Map<String, dynamic> data,
+      required DocumentReference ref,
+      required String? userId,
+      required String? profilePictureUrl}) {
+    return Comment(
+        author: data["name"],
+        comment: data["comment"],
+        reference: ref,
+        userId: userId,
+        profilePicture: profilePictureUrl);
   }
 
   Map<String, dynamic> toFirestore() {
-    return {"name": name, "comment": comment};
+    return {"name": author, "comment": comment};
   }
 
   @override
   String toString() {
-    return comment;
+    return "Comment<$author:$comment>";
   }
 }

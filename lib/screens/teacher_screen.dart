@@ -7,6 +7,7 @@ import 'package:iesportocristo_exposed/components/mobile_navigation.dart';
 import 'package:iesportocristo_exposed/components/navbar.dart';
 import 'package:iesportocristo_exposed/components/cards/comments_section.dart';
 import 'package:iesportocristo_exposed/models/teacher.dart';
+import 'package:remove_diacritic/remove_diacritic.dart';
 
 class TeacherScreen extends StatefulWidget {
   const TeacherScreen({super.key, required this.teacherName});
@@ -34,7 +35,7 @@ class _TeacherScreenState extends State<TeacherScreen> {
     Image? image;
     try {
       final url = await storage
-          .child("/teachers/${widget.teacherName}.jpg")
+          .child("/teachers/${removeDiacritics(widget.teacherName)}.jpg")
           .getDownloadURL();
       image = Image.network(url);
     } on FirebaseException catch (_) {

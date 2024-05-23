@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iesportocristo_exposed/models/teacher.dart';
+import 'package:remove_diacritic/remove_diacritic.dart';
 
 class RandomTeacher extends StatefulWidget {
   const RandomTeacher({super.key});
@@ -31,8 +32,9 @@ class _RandomTeacherState extends State<RandomTeacher> {
     int teacherIndex = random.nextInt(teachersSnapshot.docs.length);
     var teacherName = teachersSnapshot.docs[teacherIndex].id;
     try {
-      final url =
-          await storage.child("/teachers/$teacherName.jpg").getDownloadURL();
+      final url = await storage
+          .child("/teachers/${removeDiacritics(teacherName)}.jpg")
+          .getDownloadURL();
       image = Image.network(url);
     } on FirebaseException catch (_) {
       debugPrint("Image of $teacherName not found");
