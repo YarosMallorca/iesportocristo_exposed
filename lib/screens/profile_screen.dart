@@ -91,240 +91,250 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       !accountSnapshot.hasData) {
                     return const Center(child: CircularProgressIndicator());
                   }
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(48.0),
-                            child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text("Perfil",
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                          fontSize: 48,
-                                          fontWeight: FontWeight.bold)),
-                                  const SizedBox(height: 32),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      StatefulBuilder(
-                                          builder: (context, setState) {
-                                        return Stack(
-                                          children: [
-                                            CircleAvatar(
-                                              radius: 48,
-                                              backgroundImage: NetworkImage(
-                                                  accountSnapshot
-                                                      .data!["photoURL"]),
-                                            ),
-                                            if (widget.userId == auth.uid ||
-                                                widget.userId == null)
-                                              Material(
-                                                color: Colors.transparent,
-                                                borderRadius:
-                                                    BorderRadius.circular(50),
-                                                child: InkWell(
-                                                  onTap: () =>
-                                                      uploadAndCropPhoto(),
-                                                  splashColor: Colors.white
-                                                      .withOpacity(0.7),
+                  return SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Center(
+                          child: Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(48.0),
+                              child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text("Perfil",
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                            fontSize: 48,
+                                            fontWeight: FontWeight.bold)),
+                                    const SizedBox(height: 32),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        StatefulBuilder(
+                                            builder: (context, setState) {
+                                          return Stack(
+                                            children: [
+                                              CircleAvatar(
+                                                radius: 48,
+                                                backgroundImage: NetworkImage(
+                                                    accountSnapshot
+                                                        .data!["photoURL"]),
+                                              ),
+                                              if (widget.userId == auth.uid ||
+                                                  widget.userId == null)
+                                                Material(
+                                                  color: Colors.transparent,
                                                   borderRadius:
                                                       BorderRadius.circular(50),
-                                                  child: MouseRegion(
-                                                    cursor: SystemMouseCursors
-                                                        .click,
-                                                    onEnter: (event) =>
-                                                        setState(() =>
-                                                            _hoveringPhoto =
-                                                                true),
-                                                    onExit: (event) => setState(
-                                                        () => _hoveringPhoto =
-                                                            false),
-                                                    child: AnimatedOpacity(
-                                                      opacity: _hoveringPhoto
-                                                          ? 1
-                                                          : 0,
-                                                      duration: const Duration(
-                                                          milliseconds: 200),
-                                                      child: Container(
-                                                        width: 96,
-                                                        height: 96,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                                shape: BoxShape
-                                                                    .circle,
-                                                                color: Colors
-                                                                    .black
-                                                                    .withOpacity(
-                                                                        0.5)),
-                                                        child: const Icon(
-                                                            Icons.photo_camera,
-                                                            size: 32,
-                                                            color:
-                                                                Colors.white),
+                                                  child: InkWell(
+                                                    onTap: () =>
+                                                        uploadAndCropPhoto(),
+                                                    splashColor: Colors.white
+                                                        .withOpacity(0.7),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            50),
+                                                    child: MouseRegion(
+                                                      cursor: SystemMouseCursors
+                                                          .click,
+                                                      onEnter: (event) =>
+                                                          setState(() =>
+                                                              _hoveringPhoto =
+                                                                  true),
+                                                      onExit: (event) =>
+                                                          setState(() =>
+                                                              _hoveringPhoto =
+                                                                  false),
+                                                      child: AnimatedOpacity(
+                                                        opacity: _hoveringPhoto
+                                                            ? 1
+                                                            : 0,
+                                                        duration:
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    200),
+                                                        child: Container(
+                                                          width: 96,
+                                                          height: 96,
+                                                          decoration: BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                              color: Colors
+                                                                  .black
+                                                                  .withOpacity(
+                                                                      0.5)),
+                                                          child: const Icon(
+                                                              Icons
+                                                                  .photo_camera,
+                                                              size: 32,
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
+                                            ],
+                                          );
+                                        }),
+                                        const SizedBox(width: 16),
+                                        Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                                accountSnapshot.data!["name"]
+                                                    .split(" ")[0],
+                                                style: const TextStyle(
+                                                    fontSize: 32,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                            if ((accountSnapshot.data!.data()
+                                                    as Map)
+                                                .containsKey("nickname")) ...[
+                                              const SizedBox(height: 8),
+                                              Text(accountSnapshot
+                                                  .data!["nickname"])
+                                            ]
                                           ],
-                                        );
-                                      }),
-                                      const SizedBox(width: 16),
-                                      Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                              accountSnapshot.data!["name"]
-                                                  .split(" ")[0],
-                                              style: const TextStyle(
-                                                  fontSize: 32,
-                                                  fontWeight: FontWeight.bold)),
-                                          if ((accountSnapshot.data!.data()
-                                                  as Map)
-                                              .containsKey("nickname")) ...[
-                                            const SizedBox(height: 8),
-                                            Text(accountSnapshot
-                                                .data!["nickname"])
-                                          ]
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  const SizedBox(height: 16),
-                                  const SizedBox(
-                                    width: 400,
-                                    child: Divider(
-                                      thickness: 2,
+                                        )
+                                      ],
                                     ),
-                                  ),
-                                  const SizedBox(height: 16),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: StatefulBuilder(
-                                        builder: (context, setState) {
-                                      return Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          if ((accountSnapshot.data!.data()
-                                                      as Map)
-                                                  .containsKey("description") ||
-                                              (widget.userId == auth.uid ||
-                                                  widget.userId == null)) ...[
-                                            const Text(
-                                              "Sobre mí",
-                                              style: TextStyle(fontSize: 24),
-                                            ),
-                                            const SizedBox(height: 8),
-                                            if (_editingDescription) ...[
-                                              ConstrainedBox(
-                                                constraints:
-                                                    const BoxConstraints(
-                                                        maxWidth: 400),
-                                                child: Form(
-                                                    child: TextFormField(
-                                                  minLines: 2,
-                                                  maxLines: 10,
-                                                  maxLength: 5000,
-                                                  controller:
-                                                      _descriptionController,
-                                                  decoration: const InputDecoration(
-                                                      border:
-                                                          OutlineInputBorder(),
-                                                      hintText:
-                                                          "Escribe algo sobre ti"),
-                                                )),
+                                    const SizedBox(height: 16),
+                                    const SizedBox(
+                                      width: 400,
+                                      child: Divider(
+                                        thickness: 2,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: StatefulBuilder(
+                                          builder: (context, setState) {
+                                        return Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            if ((accountSnapshot.data!.data()
+                                                        as Map)
+                                                    .containsKey(
+                                                        "description") ||
+                                                (widget.userId == auth.uid ||
+                                                    widget.userId == null)) ...[
+                                              const Text(
+                                                "Sobre mí",
+                                                style: TextStyle(fontSize: 24),
                                               ),
-                                            ] else ...[
-                                              ConstrainedBox(
+                                              const SizedBox(height: 8),
+                                              if (_editingDescription) ...[
+                                                ConstrainedBox(
                                                   constraints:
                                                       const BoxConstraints(
                                                           maxWidth: 400),
-                                                  child: Text(
-                                                    (accountSnapshot.data!
-                                                                .data() as Map)
-                                                            .containsKey(
-                                                                "description")
-                                                        ? accountSnapshot.data![
-                                                            "description"]
-                                                        : "No hay descripción",
-                                                    style: const TextStyle(
-                                                        fontSize: 16),
+                                                  child: Form(
+                                                      child: TextFormField(
+                                                    minLines: 2,
+                                                    maxLines: 10,
+                                                    maxLength: 5000,
+                                                    controller:
+                                                        _descriptionController,
+                                                    decoration: const InputDecoration(
+                                                        border:
+                                                            OutlineInputBorder(),
+                                                        hintText:
+                                                            "Escribe algo sobre ti"),
                                                   )),
-                                            ],
-                                            if (widget.userId == auth.uid ||
-                                                widget.userId == null) ...[
-                                              const SizedBox(height: 16),
-                                              ElevatedButton.icon(
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      if (_editingDescription) {
-                                                        Provider.of<AuthManager>(
-                                                                context,
-                                                                listen: false)
-                                                            .setUserDescription(
-                                                                _descriptionController
-                                                                    .text);
-                                                      }
-                                                      _editingDescription =
-                                                          !_editingDescription;
-                                                    });
-                                                  },
-                                                  label: Text(
-                                                      _editingDescription
-                                                          ? "Guardar"
-                                                          : "Editar",
+                                                ),
+                                              ] else ...[
+                                                ConstrainedBox(
+                                                    constraints:
+                                                        const BoxConstraints(
+                                                            maxWidth: 400),
+                                                    child: Text(
+                                                      (accountSnapshot.data!
+                                                                      .data()
+                                                                  as Map)
+                                                              .containsKey(
+                                                                  "description")
+                                                          ? accountSnapshot
+                                                                  .data![
+                                                              "description"]
+                                                          : "No hay descripción",
                                                       style: const TextStyle(
-                                                          fontSize: 16)),
-                                                  icon: Icon(
-                                                      _editingDescription
-                                                          ? Icons.save
-                                                          : Icons.edit,
-                                                      size: 16)),
+                                                          fontSize: 16),
+                                                    )),
+                                              ],
+                                              if (widget.userId == auth.uid ||
+                                                  widget.userId == null) ...[
+                                                const SizedBox(height: 16),
+                                                ElevatedButton.icon(
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        if (_editingDescription) {
+                                                          Provider.of<AuthManager>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .setUserDescription(
+                                                                  _descriptionController
+                                                                      .text);
+                                                        }
+                                                        _editingDescription =
+                                                            !_editingDescription;
+                                                      });
+                                                    },
+                                                    label: Text(
+                                                        _editingDescription
+                                                            ? "Guardar"
+                                                            : "Editar",
+                                                        style: const TextStyle(
+                                                            fontSize: 16)),
+                                                    icon: Icon(
+                                                        _editingDescription
+                                                            ? Icons.save
+                                                            : Icons.edit,
+                                                        size: 16)),
+                                              ]
                                             ]
-                                          ]
-                                        ],
-                                      );
-                                    }),
-                                  ),
-                                ]),
+                                          ],
+                                        );
+                                      }),
+                                    ),
+                                  ]),
+                            ),
                           ),
                         ),
-                      ),
-                      // const SizedBox(height: 32),
-                      // Wrap(
-                      //   alignment: WrapAlignment.center,
-                      //   children: [
-                      //     Card(
-                      //       child: Column(
-                      //         mainAxisSize: MainAxisSize.min,
-                      //         children: [
-                      //           const Text("Comentarios recientes"),
-                      //           const SizedBox(height: 12),
-                      //           ListView.builder(
-                      //               shrinkWrap: true,
-                      //               itemBuilder: (context, index) {
-                      //                 return ListTile(
-                      //                   title: Text("Comentario $index"),
-                      //                   subtitle: Text("Comentario de $index"),
-                      //                 );
-                      //               })
-                      //         ],
-                      //       ),
-                      //     )
-                      //   ],
-                      // )
-                    ],
+                        // const SizedBox(height: 32),
+                        // Wrap(
+                        //   alignment: WrapAlignment.center,
+                        //   children: [
+                        //     Card(
+                        //       child: Column(
+                        //         mainAxisSize: MainAxisSize.min,
+                        //         children: [
+                        //           const Text("Comentarios recientes"),
+                        //           const SizedBox(height: 12),
+                        //           ListView.builder(
+                        //               shrinkWrap: true,
+                        //               itemBuilder: (context, index) {
+                        //                 return ListTile(
+                        //                   title: Text("Comentario $index"),
+                        //                   subtitle: Text("Comentario de $index"),
+                        //                 );
+                        //               })
+                        //         ],
+                        //       ),
+                        //     )
+                        //   ],
+                        // )
+                      ],
+                    ),
                   );
                 })));
   }
