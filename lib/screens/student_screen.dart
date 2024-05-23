@@ -71,6 +71,7 @@ class _StudentScreenState extends State<StudentScreen> {
                       children: [
                         Wrap(
                             spacing: 12,
+                            alignment: WrapAlignment.center,
                             crossAxisAlignment: WrapCrossAlignment.center,
                             children: [
                               StudentInfo(student: student!),

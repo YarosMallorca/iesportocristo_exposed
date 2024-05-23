@@ -15,6 +15,7 @@ class StudentInfo extends StatelessWidget {
           spacing: 24,
           runSpacing: 24,
           crossAxisAlignment: WrapCrossAlignment.center,
+          alignment: WrapAlignment.center,
           children: [
             SizedBox(
               width: 360,
