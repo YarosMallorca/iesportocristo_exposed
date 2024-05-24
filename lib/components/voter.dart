@@ -40,7 +40,7 @@ class _VoterState extends State<Voter> {
     final userId = context.read<AuthManager>().uid;
     if (userId == null) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("You must be logged in to vote"),
+          content: Text("Debes iniciar sesión para votar"),
           duration: Duration(seconds: 1)));
       debugPrint("User not logged in");
       return;
