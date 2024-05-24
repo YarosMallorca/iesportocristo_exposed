@@ -6,6 +6,7 @@ import 'package:iesportocristo_exposed/components/cards/meme_info.dart';
 import 'package:iesportocristo_exposed/components/mobile_navigation.dart';
 import 'package:iesportocristo_exposed/components/navbar.dart';
 import 'package:iesportocristo_exposed/components/cards/comments_section.dart';
+import 'package:iesportocristo_exposed/components/voter.dart';
 import 'package:iesportocristo_exposed/models/meme.dart';
 
 class MemeScreen extends StatefulWidget {
@@ -66,11 +67,13 @@ class _MemeScreenState extends State<MemeScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Center(
-                          child: MemeInfo(
+                        Row(mainAxisSize: MainAxisSize.min, children: [
+                          MemeInfo(
                             meme: meme!,
                           ),
-                        ),
+                          const SizedBox(width: 16),
+                          Voter(name: widget.memeId, type: 'memes')
+                        ]),
                         const SizedBox(height: 16),
                         Center(
                             child: CommentsSection(

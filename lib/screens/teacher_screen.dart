@@ -6,6 +6,7 @@ import 'package:iesportocristo_exposed/components/cards/teacher_info.dart';
 import 'package:iesportocristo_exposed/components/mobile_navigation.dart';
 import 'package:iesportocristo_exposed/components/navbar.dart';
 import 'package:iesportocristo_exposed/components/cards/comments_section.dart';
+import 'package:iesportocristo_exposed/components/voter.dart';
 import 'package:iesportocristo_exposed/models/teacher.dart';
 import 'package:remove_diacritic/remove_diacritic.dart';
 
@@ -76,9 +77,17 @@ class _TeacherScreenState extends State<TeacherScreen> {
                           crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
                             TeacherInfo(teacher: teacher!),
-                            AiCard(
-                              name: teacher!.name,
-                              description: teacher!.description,
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                AiCard(
+                                  name: teacher!.name,
+                                  description: teacher!.description,
+                                ),
+                                const SizedBox(height: 16),
+                                Voter(
+                                    name: widget.teacherName, type: 'teachers')
+                              ],
                             ),
                           ],
                         ),

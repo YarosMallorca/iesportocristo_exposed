@@ -7,6 +7,7 @@ import 'package:iesportocristo_exposed/components/cards/student_info.dart';
 import 'package:iesportocristo_exposed/components/mobile_navigation.dart';
 import 'package:iesportocristo_exposed/components/navbar.dart';
 import 'package:iesportocristo_exposed/components/cards/comments_section.dart';
+import 'package:iesportocristo_exposed/components/voter.dart';
 import 'package:iesportocristo_exposed/models/student.dart';
 
 class StudentScreen extends StatefulWidget {
@@ -109,14 +110,18 @@ class _StudentScreenState extends State<StudentScreen> {
                                         ),
                                       ),
                                     ),
-                                  ]
+                                  ],
+                                  const SizedBox(height: 16),
+                                  Voter(
+                                      name: widget.studentName,
+                                      type: 'students')
                                 ],
                               )
                             ]),
                         const SizedBox(height: 16),
                         Center(
                             child: CommentsSection(
-                                type: 'students', name: student!.name))
+                                type: 'students', name: student!.name)),
                       ],
                     ),
                   ),
