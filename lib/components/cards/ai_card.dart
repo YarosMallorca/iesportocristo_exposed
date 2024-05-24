@@ -29,7 +29,7 @@ class _AiCardState extends State<AiCard> {
             role: OpenAIChatMessageRole.user,
             content: [
               OpenAIChatCompletionChoiceMessageContentItemModel.text(
-                  "Escribe un chiste corto sobre ${widget.name}, el contexto es: ${widget.description}, y los comentarios son: ${widget.commentsList}. Es de FP de Informatica en IES Porto Cristo"),
+                  "Escribe un chiste corto sobre ${widget.name}, el contexto es: ${widget.description}. Es de FP de Informatica en IES Porto Cristo"),
             ]),
       ],
       temperature: 0.8,
