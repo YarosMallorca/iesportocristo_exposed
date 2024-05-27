@@ -11,6 +11,7 @@ dependencies:
   cloud_firestore: ^4.17.3
   dart_openai: ^5.1.0
   envied: ^0.5.4+1
+  file_saver: ^0.2.13
   firebase_analytics: ^10.10.6
   firebase_auth: ^4.19.6
   firebase_core: ^2.31.0
@@ -27,11 +28,13 @@ dependencies:
   image_cropper: ^6.0.0
   image_picker: ^1.1.1
   image_picker_for_web: ^3.0.4
+  imgflip_api: ^1.0.0
   just_audio: ^0.9.38
   path: ^1.9.0
   provider: ^6.1.2
   remove_diacritic: ^0.9.0
   shared_preferences: ^2.2.3
+  url_launcher: ^6.2.6
   uuid: ^4.4.0
 
 dev_dependencies:

@@ -1,5 +1,4 @@
 import 'package:dart_openai/dart_openai.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:iesportocristo_exposed/models/comment.dart';
 
@@ -47,9 +46,7 @@ class _AiCardState extends State<AiCard> {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: FutureBuilder<String?>(
-              future: kDebugMode
-                  ? Future.value("Ejecutando en debug, no mostrando chiste")
-                  : aiCompletion(),
+              future: aiCompletion(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());

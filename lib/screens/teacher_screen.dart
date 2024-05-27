@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:iesportocristo_exposed/components/cards/ai_card.dart';
+import 'package:iesportocristo_exposed/components/cards/ai_meme.dart';
 import 'package:iesportocristo_exposed/components/cards/teacher_info.dart';
 import 'package:iesportocristo_exposed/components/mobile_navigation.dart';
 import 'package:iesportocristo_exposed/components/navbar.dart';
@@ -93,8 +94,18 @@ class _TeacherScreenState extends State<TeacherScreen> {
                         ),
                         const SizedBox(height: 16),
                         Center(
-                            child: CommentsSection(
-                                type: 'teachers', name: teacher!.name))
+                            child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            AiMeme(
+                                name: teacher!.name,
+                                description: teacher!.description),
+                            const SizedBox(width: 16),
+                            CommentsSection(
+                                type: 'teachers', name: teacher!.name),
+                          ],
+                        ))
                       ],
                     ),
                   ),

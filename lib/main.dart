@@ -6,10 +6,7 @@ import 'package:iesportocristo_exposed/env/env.dart';
 import 'package:iesportocristo_exposed/firebase_options.dart';
 import 'package:iesportocristo_exposed/router/routes.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
-
-AudioPlayer player = AudioPlayer();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

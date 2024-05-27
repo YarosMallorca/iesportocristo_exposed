@@ -3,6 +3,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iesportocristo_exposed/components/cards/ai_card.dart';
+import 'package:iesportocristo_exposed/components/cards/ai_meme.dart';
 import 'package:iesportocristo_exposed/components/cards/student_info.dart';
 import 'package:iesportocristo_exposed/components/mobile_navigation.dart';
 import 'package:iesportocristo_exposed/components/navbar.dart';
@@ -120,8 +121,19 @@ class _StudentScreenState extends State<StudentScreen> {
                             ]),
                         const SizedBox(height: 16),
                         Center(
-                            child: CommentsSection(
-                                type: 'students', name: student!.name)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              AiMeme(
+                                  name: student!.name,
+                                  description: student!.description),
+                              const SizedBox(width: 16),
+                              CommentsSection(
+                                  type: 'students', name: student!.name),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
