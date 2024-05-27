@@ -26,6 +26,8 @@ jobs:
         run: |
           touch .env
           echo OPEN_AI_API_KEY=${{ secrets.OPEN_AI_API_KEY }} >> .env
+          echo IMGFLIP_USERNAME=${{ secrets.IMGFLIP_USERNAME }} >> .env
+          echo IMGFLIP_PASSWORD=${{ secrets.IMGFLIP_PASSWORD }} >> .env
 
       - name: "Run build runner"
         run: flutter pub run build_runner build --delete-conflicting-outputs
