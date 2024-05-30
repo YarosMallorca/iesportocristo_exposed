@@ -198,8 +198,124 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     as Map)
                                                 .containsKey("nickname")) ...[
                                               const SizedBox(height: 8),
-                                              Text(accountSnapshot
-                                                  .data!["nickname"])
+                                              Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  const Text("Apodo: ",
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                  Text(
+                                                      accountSnapshot
+                                                          .data!["nickname"],
+                                                      style: const TextStyle(
+                                                          fontSize: 16)),
+                                                  const SizedBox(width: 8),
+                                                  ElevatedButton.icon(
+                                                      onPressed: () async {
+                                                        showDialog(
+                                                            context: context,
+                                                            builder: (context) {
+                                                              final nicknameController =
+                                                                  TextEditingController(
+                                                                      text: accountSnapshot
+                                                                              .data![
+                                                                          "nickname"]);
+                                                              return AlertDialog(
+                                                                  title: const Text(
+                                                                      "Cambiar apodo"),
+                                                                  content:
+                                                                      TextField(
+                                                                    controller:
+                                                                        nicknameController,
+                                                                    maxLength:
+                                                                        15,
+                                                                    decoration: const InputDecoration(
+                                                                        hintText:
+                                                                            "Apodo"),
+                                                                  ),
+                                                                  actions: [
+                                                                    TextButton(
+                                                                        onPressed: () =>
+                                                                            Navigator.of(context)
+                                                                                .pop(),
+                                                                        child: const Text(
+                                                                            "Cancelar")),
+                                                                    ElevatedButton(
+                                                                        onPressed:
+                                                                            () {
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                          context
+                                                                              .read<AuthManager>()
+                                                                              .setNickname(nicknameController.text.trim());
+                                                                        },
+                                                                        child: const Text(
+                                                                            "Guardar"))
+                                                                  ]);
+                                                            });
+                                                      },
+                                                      label:
+                                                          const Text("Cambiar"),
+                                                      icon: const Icon(
+                                                          Icons.edit))
+                                                ],
+                                              )
+                                            ] else ...[
+                                              ElevatedButton.icon(
+                                                onPressed: () {
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        final nicknameController =
+                                                            TextEditingController();
+                                                        return AlertDialog(
+                                                          title: const Text(
+                                                              "Añadir apodo"),
+                                                          content: TextField(
+                                                            controller:
+                                                                nicknameController,
+                                                            maxLength: 15,
+                                                            decoration:
+                                                                const InputDecoration(
+                                                                    hintText:
+                                                                        "Apodo"),
+                                                          ),
+                                                          actions: [
+                                                            TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop(),
+                                                                child: const Text(
+                                                                    "Cancelar")),
+                                                            ElevatedButton(
+                                                                onPressed: () {
+                                                                  Provider.of<AuthManager>(
+                                                                          context,
+                                                                          listen:
+                                                                              false)
+                                                                      .setNickname(nicknameController
+                                                                          .text
+                                                                          .trim());
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                },
+                                                                child: const Text(
+                                                                    "Guardar"))
+                                                          ],
+                                                        );
+                                                      });
+                                                },
+                                                label: const Text(
+                                                    "Añadir apodo",
+                                                    style: TextStyle(
+                                                        fontSize: 16)),
+                                              )
                                             ]
                                           ],
                                         )

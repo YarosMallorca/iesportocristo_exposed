@@ -67,8 +67,7 @@ class _AiMemeState extends State<AiMeme> {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints:
-          const BoxConstraints(minWidth: 100, maxWidth: 500, minHeight: 400),
+      constraints: const BoxConstraints(maxWidth: 500),
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(16),

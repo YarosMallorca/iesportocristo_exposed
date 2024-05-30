@@ -68,62 +68,62 @@ class _StudentScreenState extends State<StudentScreen> {
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Wrap(
-                            spacing: 12,
-                            alignment: WrapAlignment.center,
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            children: [
-                              StudentInfo(student: student!),
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  AiCard(
-                                      name: student!.name,
-                                      description: student!.description),
-                                  if (student!.uid != null &&
-                                      student!.uid!.isNotEmpty) ...[
-                                    const SizedBox(height: 16),
-                                    Material(
-                                      elevation: 15,
-                                      color: Colors.grey[800],
-                                      borderRadius: BorderRadius.circular(16),
-                                      child: InkWell(
-                                        onTap: () {
-                                          context.go(
-                                              '/perfil?uid=${student!.uid}');
-                                        },
-                                        child: const Padding(
-                                          padding: EdgeInsets.all(12.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Icon(Icons
-                                                  .emoji_emotions_outlined),
-                                              SizedBox(width: 8),
-                                              Text("Ver perfil",
-                                                  style:
-                                                      TextStyle(fontSize: 16)),
-                                            ],
+                    child: Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Wrap(
+                              spacing: 12,
+                              alignment: WrapAlignment.center,
+                              crossAxisAlignment: WrapCrossAlignment.center,
+                              children: [
+                                StudentInfo(student: student!),
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    AiCard(
+                                        name: student!.name,
+                                        description: student!.description),
+                                    if (student!.uid != null &&
+                                        student!.uid!.isNotEmpty) ...[
+                                      const SizedBox(height: 16),
+                                      Material(
+                                        elevation: 15,
+                                        color: Colors.grey[800],
+                                        borderRadius: BorderRadius.circular(16),
+                                        child: InkWell(
+                                          onTap: () {
+                                            context.go(
+                                                '/perfil?uid=${student!.uid}');
+                                          },
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(12.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Icon(Icons
+                                                    .emoji_emotions_outlined),
+                                                SizedBox(width: 8),
+                                                Text("Ver perfil",
+                                                    style: TextStyle(
+                                                        fontSize: 16)),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
+                                    ],
+                                    const SizedBox(height: 16),
+                                    Voter(
+                                        name: widget.studentName,
+                                        type: 'students')
                                   ],
-                                  const SizedBox(height: 16),
-                                  Voter(
-                                      name: widget.studentName,
-                                      type: 'students')
-                                ],
-                              )
-                            ]),
-                        const SizedBox(height: 16),
-                        Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
+                                )
+                              ]),
+                          const SizedBox(height: 16),
+                          Wrap(
+                            alignment: WrapAlignment.center,
+                            runAlignment: WrapAlignment.center,
                             children: [
                               AiMeme(
                                   name: student!.name,
@@ -133,8 +133,8 @@ class _StudentScreenState extends State<StudentScreen> {
                                   type: 'students', name: student!.name),
                             ],
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

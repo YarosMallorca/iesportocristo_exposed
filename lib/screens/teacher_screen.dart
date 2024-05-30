@@ -68,45 +68,47 @@ class _TeacherScreenState extends State<TeacherScreen> {
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Wrap(
-                          spacing: 12,
-                          runAlignment: WrapAlignment.center,
-                          alignment: WrapAlignment.center,
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          children: [
-                            TeacherInfo(teacher: teacher!),
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                AiCard(
+                    child: Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Wrap(
+                            spacing: 12,
+                            runAlignment: WrapAlignment.center,
+                            alignment: WrapAlignment.center,
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            children: [
+                              TeacherInfo(teacher: teacher!),
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  AiCard(
+                                    name: teacher!.name,
+                                    description: teacher!.description,
+                                  ),
+                                  const SizedBox(height: 16),
+                                  Voter(
+                                      name: widget.teacherName,
+                                      type: 'teachers')
+                                ],
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Wrap(
+                            alignment: WrapAlignment.center,
+                            runAlignment: WrapAlignment.center,
+                            children: [
+                              AiMeme(
                                   name: teacher!.name,
-                                  description: teacher!.description,
-                                ),
-                                const SizedBox(height: 16),
-                                Voter(
-                                    name: widget.teacherName, type: 'teachers')
-                              ],
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                        Center(
-                            child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            AiMeme(
-                                name: teacher!.name,
-                                description: teacher!.description),
-                            const SizedBox(width: 16),
-                            CommentsSection(
-                                type: 'teachers', name: teacher!.name),
-                          ],
-                        ))
-                      ],
+                                  description: teacher!.description),
+                              const SizedBox(width: 16),
+                              CommentsSection(
+                                  type: 'teachers', name: teacher!.name),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
