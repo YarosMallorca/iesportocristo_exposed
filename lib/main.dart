@@ -26,20 +26,15 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => AuthManager(),
-      child: MaterialApp.router(
-        title: "IES Portocristo Exposed",
-        routerConfig: goRouter,
-        debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.dark,
-        darkTheme: ThemeData(
-            brightness: Brightness.dark,
-            scaffoldBackgroundColor: Colors.black,
-            appBarTheme: AppBarTheme(
-                backgroundColor: Colors.grey[900], centerTitle: true),
-            colorScheme: ColorScheme.fromSeed(
-                seedColor: Colors.orange, brightness: Brightness.dark)),
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: Center(
+          child: Text(
+            "Temporarily not available",
+            style: TextStyle(fontSize: 36),
+          ),
+        ),
       ),
     );
   }
