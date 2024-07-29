@@ -42,7 +42,6 @@ class _CommentsSectionState extends State<CommentsSection> {
         .collection('comments')
         .doc(widget.type)
         .collection(widget.name)
-        .orderBy('timestamp', descending: true)
         .get();
 
     for (final doc in querySnapshot.docs) {

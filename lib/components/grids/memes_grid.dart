@@ -37,7 +37,27 @@ class _MemesGridState extends State<MemesGrid> {
         throw ("Image of ${doc.id} not found");
       }
 
-      final meme = Meme.fromFirestore(doc.id, doc.data(), image!);
+      final data = doc.data();
+
+      final userSnapshot =
+          await db.collection('users').doc(data['author']).get();
+
+      if (userSnapshot.exists) {
+        data['name'] = userSnapshot.data()!.containsKey('nickname')
+            ? userSnapshot.data()!['nickname']
+            : userSnapshot.data()!['name'].split(" ")[0];
+      } else {
+        data['name'] = "Anónimo";
+      }
+
+      final meme = Meme.fromFirestore(
+          id: doc.id,
+          json: doc.data(),
+          image: image!,
+          ref: doc.reference,
+          userId: userSnapshot.exists ? userSnapshot.id : null,
+          profilePictureUrl:
+              userSnapshot.exists ? userSnapshot.data()!['photoURL'] : null);
       memesList.add(meme);
     }
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {

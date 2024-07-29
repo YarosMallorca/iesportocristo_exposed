@@ -45,8 +45,24 @@ class _RandomMemeState extends State<RandomMeme> {
       return;
     }
 
+    final userSnapshot = await db.collection('users').doc(data['name']).get();
+
+    if (userSnapshot.exists) {
+      data['name'] = userSnapshot.data()!.containsKey('nickname')
+          ? userSnapshot.data()!['nickname']
+          : userSnapshot.data()!['name'].split(" ")[0];
+    } else {
+      data['name'] = "Anónimo";
+    }
+
     meme = Meme.fromFirestore(
-        memeId, doc.data() as Map<String, dynamic>, imageBytes!);
+        id: memeId,
+        json: doc.data() as Map<String, dynamic>,
+        image: imageBytes!,
+        ref: doc.reference,
+        userId: userSnapshot.exists ? userSnapshot.id : null,
+        profilePictureUrl:
+            userSnapshot.exists ? userSnapshot.data()!['photoURL'] : null);
 
     setState(() {});
   }
@@ -80,8 +96,35 @@ class _RandomMemeState extends State<RandomMeme> {
                                     fontSize: 24, fontWeight: FontWeight.bold)),
                           ),
                           const SizedBox(height: 8),
-                          Text("Por: ${meme!.author}",
-                              style: const TextStyle(fontSize: 18)),
+                          FutureBuilder<String?>(
+                              future: FirebaseFirestore.instance
+                                  .collection('users')
+                                  .doc(meme!.userId)
+                                  .get()
+                                  .then((snapshot) {
+                                if (snapshot.exists) {
+                                  return snapshot
+                                          .data()!
+                                          .containsKey('nickname')
+                                      ? snapshot.data()!['nickname']
+                                      : snapshot.data()!['name'].split(" ")[0];
+                                } else {
+                                  return null;
+                                }
+                              }),
+                              builder: (context, name) {
+                                return Text(name.data ?? "Anónimo",
+                                    style: TextStyle(
+                                        color: meme!.userId != null
+                                            ? Theme.of(context)
+                                                .colorScheme
+                                                .primary
+                                            : Theme.of(context)
+                                                .colorScheme
+                                                .onSurface,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold));
+                              }),
                           const SizedBox(height: 16),
                           ClipRRect(
                             borderRadius: BorderRadius.circular(12),

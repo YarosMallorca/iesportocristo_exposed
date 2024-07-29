@@ -43,12 +43,31 @@ class _MemeScreenState extends State<MemeScreen> {
     final query = db.collection("memes").doc(widget.memeId);
     final doc = await query.get();
 
-    if (doc.data() == null) {
+    final data = doc.data();
+
+    if (data == null) {
       debugPrint("Meme ${widget.memeId} not found");
       return;
     }
 
-    meme = Meme.fromFirestore(widget.memeId, doc.data()!, imageBytes!);
+    final userSnapshot = await db.collection('users').doc(data['author']).get();
+
+    if (userSnapshot.exists) {
+      data['name'] = userSnapshot.data()!.containsKey('nickname')
+          ? userSnapshot.data()!['nickname']
+          : userSnapshot.data()!['name'].split(" ")[0];
+    } else {
+      data['name'] = "Anónimo";
+    }
+
+    meme = Meme.fromFirestore(
+        id: widget.memeId,
+        json: doc.data()!,
+        image: imageBytes!,
+        ref: doc.reference,
+        userId: userSnapshot.exists ? userSnapshot.id : null,
+        profilePictureUrl:
+            userSnapshot.exists ? userSnapshot.data()!['photoURL'] : null);
 
     setState(() {});
   }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iesportocristo_exposed/models/meme.dart';
@@ -39,9 +40,29 @@ class _MemeGridItemState extends State<MemeGridItem> {
                     Text(widget.meme.name,
                         style:
                             const TextStyle(color: Colors.white, fontSize: 24)),
-                    Text(widget.meme.author,
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 16)),
+                    FutureBuilder<String?>(
+                        future: FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(widget.meme.userId)
+                            .get()
+                            .then((snapshot) {
+                          if (snapshot.exists) {
+                            return snapshot.data()!.containsKey('nickname')
+                                ? snapshot.data()!['nickname']
+                                : snapshot.data()!['name'].split(" ")[0];
+                          } else {
+                            return null;
+                          }
+                        }),
+                        builder: (context, name) {
+                          return Text(name.data ?? "Anónimo",
+                              style: TextStyle(
+                                color: widget.meme.userId != null
+                                    ? Theme.of(context).colorScheme.primary
+                                    : Theme.of(context).colorScheme.onSurface,
+                                fontSize: 16,
+                              ));
+                        }),
                     const SizedBox(height: 8),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),

@@ -89,6 +89,12 @@ class AuthManager extends ChangeNotifier {
       throw FirebaseException(
           plugin: "AuthManager", message: "User is not authenticated.");
     }
+    if (nickname.trim().isEmpty) {
+      db
+          .collection('users')
+          .doc(user!.uid)
+          .update({'nickname': FieldValue.delete()});
+    }
     db.collection('users').doc(user!.uid).update({'nickname': nickname});
     notifyListeners();
   }

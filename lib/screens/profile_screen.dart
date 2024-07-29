@@ -83,375 +83,400 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
         appBar: const Navbar(),
         endDrawer: const MobileNavigation(),
-        body: Consumer<AuthManager>(
-            builder: (context, auth, _) => FutureBuilder<DocumentSnapshot>(
-                future: db.doc(widget.userId ?? auth.uid).get(),
-                builder: (context, accountSnapshot) {
-                  if (accountSnapshot.connectionState != ConnectionState.done ||
-                      !accountSnapshot.hasData) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  return SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Center(
-                          child: Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(48.0),
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text("Perfil",
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                            fontSize: 48,
-                                            fontWeight: FontWeight.bold)),
-                                    const SizedBox(height: 32),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        StatefulBuilder(
-                                            builder: (context, setState) {
-                                          return Stack(
-                                            children: [
-                                              CircleAvatar(
-                                                radius: 48,
-                                                backgroundImage: NetworkImage(
-                                                    accountSnapshot
-                                                        .data!["photoURL"]),
-                                              ),
-                                              if (widget.userId == auth.uid ||
-                                                  widget.userId == null)
-                                                Material(
-                                                  color: Colors.transparent,
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
-                                                  child: InkWell(
-                                                    onTap: () =>
-                                                        uploadAndCropPhoto(),
-                                                    splashColor: Colors.white
-                                                        .withOpacity(0.7),
+        body: SelectionArea(
+          child: Consumer<AuthManager>(
+              builder: (context, auth, _) => FutureBuilder<DocumentSnapshot>(
+                  future: db.doc(widget.userId ?? auth.uid).get(),
+                  builder: (context, accountSnapshot) {
+                    if (accountSnapshot.connectionState !=
+                            ConnectionState.done ||
+                        !accountSnapshot.hasData) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    return SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Center(
+                            child: Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(48.0),
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text("Perfil",
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                              fontSize: 48,
+                                              fontWeight: FontWeight.bold)),
+                                      const SizedBox(height: 32),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          StatefulBuilder(
+                                              builder: (context, setState) {
+                                            return Stack(
+                                              children: [
+                                                CircleAvatar(
+                                                  radius: 48,
+                                                  backgroundImage: NetworkImage(
+                                                      accountSnapshot
+                                                          .data!["photoURL"]),
+                                                ),
+                                                if (widget.userId == auth.uid ||
+                                                    widget.userId == null)
+                                                  Material(
+                                                    color: Colors.transparent,
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             50),
-                                                    child: MouseRegion(
-                                                      cursor: SystemMouseCursors
-                                                          .click,
-                                                      onEnter: (event) =>
-                                                          setState(() =>
-                                                              _hoveringPhoto =
-                                                                  true),
-                                                      onExit: (event) =>
-                                                          setState(() =>
-                                                              _hoveringPhoto =
-                                                                  false),
-                                                      child: AnimatedOpacity(
-                                                        opacity: _hoveringPhoto
-                                                            ? 1
-                                                            : 0,
-                                                        duration:
-                                                            const Duration(
-                                                                milliseconds:
-                                                                    200),
-                                                        child: Container(
-                                                          width: 96,
-                                                          height: 96,
-                                                          decoration: BoxDecoration(
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                              color: Colors
-                                                                  .black
-                                                                  .withOpacity(
-                                                                      0.5)),
-                                                          child: const Icon(
-                                                              Icons
-                                                                  .photo_camera,
-                                                              size: 32,
-                                                              color:
-                                                                  Colors.white),
+                                                    child: InkWell(
+                                                      onTap: () =>
+                                                          uploadAndCropPhoto(),
+                                                      splashColor: Colors.white
+                                                          .withOpacity(0.7),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              50),
+                                                      child: MouseRegion(
+                                                        cursor:
+                                                            SystemMouseCursors
+                                                                .click,
+                                                        onEnter: (event) =>
+                                                            setState(() =>
+                                                                _hoveringPhoto =
+                                                                    true),
+                                                        onExit: (event) =>
+                                                            setState(() =>
+                                                                _hoveringPhoto =
+                                                                    false),
+                                                        child: AnimatedOpacity(
+                                                          opacity:
+                                                              _hoveringPhoto
+                                                                  ? 1
+                                                                  : 0,
+                                                          duration:
+                                                              const Duration(
+                                                                  milliseconds:
+                                                                      200),
+                                                          child: Container(
+                                                            width: 96,
+                                                            height: 96,
+                                                            decoration: BoxDecoration(
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                                color: Colors
+                                                                    .black
+                                                                    .withOpacity(
+                                                                        0.5)),
+                                                            child: const Icon(
+                                                                Icons
+                                                                    .photo_camera,
+                                                                size: 32,
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                            ],
-                                          );
-                                        }),
-                                        const SizedBox(width: 16),
-                                        Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                                accountSnapshot.data!["name"]
-                                                    .split(" ")[0],
-                                                style: const TextStyle(
-                                                    fontSize: 32,
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                            if ((accountSnapshot.data!.data()
-                                                    as Map)
-                                                .containsKey("nickname")) ...[
-                                              const SizedBox(height: 8),
-                                              Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  const Text("Apodo: ",
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.bold)),
-                                                  Text(
-                                                      accountSnapshot
-                                                          .data!["nickname"],
-                                                      style: const TextStyle(
-                                                          fontSize: 16)),
-                                                  const SizedBox(width: 8),
+                                              ],
+                                            );
+                                          }),
+                                          const SizedBox(width: 16),
+                                          Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                  accountSnapshot.data!["name"]
+                                                      .split(" ")[0],
+                                                  style: const TextStyle(
+                                                      fontSize: 32,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                              if ((accountSnapshot.data!.data()
+                                                      as Map)
+                                                  .containsKey("nickname")) ...[
+                                                const SizedBox(height: 8),
+                                                Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      const Text("Apodo: ",
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)),
+                                                      Text(
+                                                          accountSnapshot.data![
+                                                              "nickname"],
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize:
+                                                                      16)),
+                                                      const SizedBox(width: 8),
+                                                      if (widget.userId ==
+                                                              auth.uid ||
+                                                          widget.userId ==
+                                                              null) ...[
+                                                        ElevatedButton.icon(
+                                                            onPressed:
+                                                                () async {
+                                                              showDialog(
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (context) {
+                                                                    final nicknameController =
+                                                                        TextEditingController(
+                                                                            text:
+                                                                                accountSnapshot.data!["nickname"]);
+                                                                    return AlertDialog(
+                                                                        title: const Text(
+                                                                            "Cambiar apodo"),
+                                                                        content:
+                                                                            TextField(
+                                                                          controller:
+                                                                              nicknameController,
+                                                                          maxLength:
+                                                                              15,
+                                                                          decoration:
+                                                                              const InputDecoration(hintText: "Apodo"),
+                                                                        ),
+                                                                        actions: [
+                                                                          TextButton(
+                                                                              onPressed: () => Navigator.of(context).pop(),
+                                                                              child: const Text("Cancelar")),
+                                                                          ElevatedButton(
+                                                                              onPressed: () {
+                                                                                Navigator.of(context).pop();
+                                                                                context.read<AuthManager>().setNickname(nicknameController.text.trim());
+                                                                              },
+                                                                              child: const Text("Guardar"))
+                                                                        ]);
+                                                                  });
+                                                            },
+                                                            label: const Text(
+                                                                "Cambiar"),
+                                                            icon: const Icon(
+                                                                Icons.edit))
+                                                      ],
+                                                    ])
+                                              ] else ...[
+                                                if (widget.userId == auth.uid ||
+                                                    widget.userId == null)
                                                   ElevatedButton.icon(
-                                                      onPressed: () async {
-                                                        showDialog(
-                                                            context: context,
-                                                            builder: (context) {
-                                                              final nicknameController =
-                                                                  TextEditingController(
-                                                                      text: accountSnapshot
-                                                                              .data![
-                                                                          "nickname"]);
-                                                              return AlertDialog(
-                                                                  title: const Text(
-                                                                      "Cambiar apodo"),
-                                                                  content:
-                                                                      TextField(
-                                                                    controller:
-                                                                        nicknameController,
-                                                                    maxLength:
-                                                                        15,
-                                                                    decoration: const InputDecoration(
+                                                    onPressed: () {
+                                                      showDialog(
+                                                          context: context,
+                                                          builder: (context) {
+                                                            final nicknameController =
+                                                                TextEditingController();
+                                                            return AlertDialog(
+                                                              title: const Text(
+                                                                  "Añadir apodo"),
+                                                              content:
+                                                                  TextField(
+                                                                controller:
+                                                                    nicknameController,
+                                                                maxLength: 15,
+                                                                decoration:
+                                                                    const InputDecoration(
                                                                         hintText:
                                                                             "Apodo"),
-                                                                  ),
-                                                                  actions: [
-                                                                    TextButton(
-                                                                        onPressed: () =>
-                                                                            Navigator.of(context)
-                                                                                .pop(),
-                                                                        child: const Text(
-                                                                            "Cancelar")),
-                                                                    ElevatedButton(
-                                                                        onPressed:
-                                                                            () {
-                                                                          Navigator.of(context)
-                                                                              .pop();
-                                                                          context
-                                                                              .read<AuthManager>()
-                                                                              .setNickname(nicknameController.text.trim());
-                                                                        },
-                                                                        child: const Text(
-                                                                            "Guardar"))
-                                                                  ]);
-                                                            });
-                                                      },
-                                                      label:
-                                                          const Text("Cambiar"),
-                                                      icon: const Icon(
-                                                          Icons.edit))
-                                                ],
-                                              )
-                                            ] else ...[
-                                              ElevatedButton.icon(
-                                                onPressed: () {
-                                                  showDialog(
-                                                      context: context,
-                                                      builder: (context) {
-                                                        final nicknameController =
-                                                            TextEditingController();
-                                                        return AlertDialog(
-                                                          title: const Text(
-                                                              "Añadir apodo"),
-                                                          content: TextField(
-                                                            controller:
-                                                                nicknameController,
-                                                            maxLength: 15,
-                                                            decoration:
-                                                                const InputDecoration(
-                                                                    hintText:
-                                                                        "Apodo"),
-                                                          ),
-                                                          actions: [
-                                                            TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.of(
-                                                                            context)
-                                                                        .pop(),
-                                                                child: const Text(
-                                                                    "Cancelar")),
-                                                            ElevatedButton(
-                                                                onPressed: () {
-                                                                  Provider.of<AuthManager>(
-                                                                          context,
-                                                                          listen:
-                                                                              false)
-                                                                      .setNickname(nicknameController
-                                                                          .text
-                                                                          .trim());
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop();
-                                                                },
-                                                                child: const Text(
-                                                                    "Guardar"))
-                                                          ],
-                                                        );
-                                                      });
-                                                },
-                                                label: const Text(
-                                                    "Añadir apodo",
-                                                    style: TextStyle(
-                                                        fontSize: 16)),
-                                              )
-                                            ]
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                    const SizedBox(height: 16),
-                                    const SizedBox(
-                                      width: 400,
-                                      child: Divider(
-                                        thickness: 2,
+                                                              ),
+                                                              actions: [
+                                                                TextButton(
+                                                                    onPressed: () =>
+                                                                        Navigator.of(context)
+                                                                            .pop(),
+                                                                    child: const Text(
+                                                                        "Cancelar")),
+                                                                ElevatedButton(
+                                                                    onPressed:
+                                                                        () {
+                                                                      Provider.of<AuthManager>(
+                                                                              context,
+                                                                              listen:
+                                                                                  false)
+                                                                          .setNickname(nicknameController
+                                                                              .text
+                                                                              .trim());
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop();
+                                                                    },
+                                                                    child: const Text(
+                                                                        "Guardar"))
+                                                              ],
+                                                            );
+                                                          });
+                                                    },
+                                                    label: const Text(
+                                                        "Añadir apodo",
+                                                        style: TextStyle(
+                                                            fontSize: 16)),
+                                                  )
+                                              ]
+                                            ],
+                                          )
+                                        ],
                                       ),
-                                    ),
-                                    const SizedBox(height: 16),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: StatefulBuilder(
-                                          builder: (context, setState) {
-                                        return Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            if ((accountSnapshot.data!.data()
-                                                        as Map)
-                                                    .containsKey(
-                                                        "description") ||
-                                                (widget.userId == auth.uid ||
-                                                    widget.userId == null)) ...[
-                                              const Text(
-                                                "Sobre mí",
-                                                style: TextStyle(fontSize: 24),
-                                              ),
-                                              const SizedBox(height: 8),
-                                              if (_editingDescription) ...[
-                                                ConstrainedBox(
-                                                  constraints:
-                                                      const BoxConstraints(
-                                                          maxWidth: 400),
-                                                  child: Form(
-                                                      child: TextFormField(
-                                                    minLines: 2,
-                                                    maxLines: 10,
-                                                    maxLength: 5000,
-                                                    controller:
-                                                        _descriptionController,
-                                                    decoration: const InputDecoration(
-                                                        border:
-                                                            OutlineInputBorder(),
-                                                        hintText:
-                                                            "Escribe algo sobre ti"),
-                                                  )),
+                                      const SizedBox(height: 16),
+                                      const SizedBox(
+                                        width: 400,
+                                        child: Divider(
+                                          thickness: 2,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 16),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: StatefulBuilder(
+                                            builder: (context, setState) {
+                                          return Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              if ((accountSnapshot.data!.data()
+                                                          as Map)
+                                                      .containsKey(
+                                                          "description") ||
+                                                  (widget.userId == auth.uid ||
+                                                      widget.userId ==
+                                                          null)) ...[
+                                                const Text(
+                                                  "Sobre mí",
+                                                  style:
+                                                      TextStyle(fontSize: 24),
                                                 ),
-                                              ] else ...[
-                                                ConstrainedBox(
+                                                const SizedBox(height: 8),
+                                                if (_editingDescription) ...[
+                                                  ConstrainedBox(
                                                     constraints:
                                                         const BoxConstraints(
                                                             maxWidth: 400),
-                                                    child: Text(
-                                                      (accountSnapshot.data!
-                                                                      .data()
-                                                                  as Map)
-                                                              .containsKey(
-                                                                  "description")
-                                                          ? accountSnapshot
-                                                                  .data![
-                                                              "description"]
-                                                          : "No hay descripción",
-                                                      style: const TextStyle(
-                                                          fontSize: 16),
+                                                    child: Form(
+                                                        child: TextFormField(
+                                                      minLines: 2,
+                                                      maxLines: 10,
+                                                      maxLength: 5000,
+                                                      controller:
+                                                          _descriptionController,
+                                                      decoration: const InputDecoration(
+                                                          border:
+                                                              OutlineInputBorder(),
+                                                          hintText:
+                                                              "Escribe algo sobre ti"),
                                                     )),
-                                              ],
-                                              if (widget.userId == auth.uid ||
-                                                  widget.userId == null) ...[
-                                                const SizedBox(height: 16),
-                                                ElevatedButton.icon(
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        if (_editingDescription) {
-                                                          Provider.of<AuthManager>(
-                                                                  context,
-                                                                  listen: false)
-                                                              .setUserDescription(
-                                                                  _descriptionController
-                                                                      .text);
-                                                        }
-                                                        _editingDescription =
-                                                            !_editingDescription;
-                                                      });
-                                                    },
-                                                    label: Text(
-                                                        _editingDescription
-                                                            ? "Guardar"
-                                                            : "Editar",
-                                                        style: const TextStyle(
-                                                            fontSize: 16)),
-                                                    icon: Icon(
-                                                        _editingDescription
-                                                            ? Icons.save
-                                                            : Icons.edit,
-                                                        size: 16)),
+                                                  ),
+                                                ] else ...[
+                                                  ConstrainedBox(
+                                                      constraints:
+                                                          const BoxConstraints(
+                                                              maxWidth: 400,
+                                                              maxHeight: 300),
+                                                      child:
+                                                          SingleChildScrollView(
+                                                        scrollDirection:
+                                                            Axis.vertical,
+                                                        child: Text(
+                                                          (accountSnapshot.data!
+                                                                          .data()
+                                                                      as Map)
+                                                                  .containsKey(
+                                                                      "description")
+                                                              ? accountSnapshot
+                                                                      .data![
+                                                                  "description"]
+                                                              : "No hay descripción",
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize: 16),
+                                                        ),
+                                                      )),
+                                                ],
+                                                if (widget.userId == auth.uid ||
+                                                    widget.userId == null) ...[
+                                                  const SizedBox(height: 16),
+                                                  ElevatedButton.icon(
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          if (_editingDescription) {
+                                                            Provider.of<AuthManager>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .setUserDescription(
+                                                                    _descriptionController
+                                                                        .text);
+                                                            setState(() {});
+                                                          }
+                                                          _editingDescription =
+                                                              !_editingDescription;
+                                                        });
+                                                      },
+                                                      label: Text(
+                                                          _editingDescription
+                                                              ? "Guardar"
+                                                              : "Editar",
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize:
+                                                                      16)),
+                                                      icon: Icon(
+                                                          _editingDescription
+                                                              ? Icons.save
+                                                              : Icons.edit,
+                                                          size: 16)),
+                                                ]
                                               ]
-                                            ]
-                                          ],
-                                        );
-                                      }),
-                                    ),
-                                  ]),
+                                            ],
+                                          );
+                                        }),
+                                      ),
+                                    ]),
+                              ),
                             ),
                           ),
-                        ),
-                        // const SizedBox(height: 32),
-                        // Wrap(
-                        //   alignment: WrapAlignment.center,
-                        //   children: [
-                        //     Card(
-                        //       child: Column(
-                        //         mainAxisSize: MainAxisSize.min,
-                        //         children: [
-                        //           const Text("Comentarios recientes"),
-                        //           const SizedBox(height: 12),
-                        //           ListView.builder(
-                        //               shrinkWrap: true,
-                        //               itemBuilder: (context, index) {
-                        //                 return ListTile(
-                        //                   title: Text("Comentario $index"),
-                        //                   subtitle: Text("Comentario de $index"),
-                        //                 );
-                        //               })
-                        //         ],
-                        //       ),
-                        //     )
-                        //   ],
-                        // )
-                      ],
-                    ),
-                  );
-                })));
+                          // const SizedBox(height: 32),
+                          // Wrap(
+                          //   alignment: WrapAlignment.center,
+                          //   children: [
+                          //     Card(
+                          //       child: Column(
+                          //         mainAxisSize: MainAxisSize.min,
+                          //         children: [
+                          //           const Text("Comentarios recientes"),
+                          //           const SizedBox(height: 12),
+                          //           ListView.builder(
+                          //               shrinkWrap: true,
+                          //               itemBuilder: (context, index) {
+                          //                 return ListTile(
+                          //                   title: Text("Comentario $index"),
+                          //                   subtitle: Text("Comentario de $index"),
+                          //                 );
+                          //               })
+                          //         ],
+                          //       ),
+                          //     )
+                          //   ],
+                          // )
+                        ],
+                      ),
+                    );
+                  })),
+        ));
   }
 }
